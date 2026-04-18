@@ -1,0 +1,115 @@
+{
+  "entities": {
+    "World": {
+      "title": "World",
+      "description": "A VR scene container",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "isPublic": { "type": "boolean" },
+        "environmentConfig": {
+          "type": "object",
+          "properties": {
+            "skyColor": { "type": "string" },
+            "groundColor": { "type": "string" },
+            "fog": { "type": "boolean" }
+          }
+        }
+      },
+      "required": ["name", "ownerId", "createdAt"]
+    },
+    "SceneObject": {
+      "title": "SceneObject",
+      "description": "An object in the 3D scene",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["box", "sphere", "cylinder", "torus", "plane", "light", "model"] },
+        "position": {
+          "type": "object",
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "z": { "type": "number" }
+          }
+        },
+        "rotation": {
+          "type": "object",
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "z": { "type": "number" }
+          }
+        },
+        "scale": {
+          "type": "object",
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "z": { "type": "number" }
+          }
+        },
+        "color": { "type": "string" },
+        "metadata": { "type": "object" },
+        "createdBy": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "position", "createdBy"]
+    },
+    "Collaborator": {
+      "title": "Collaborator",
+      "description": "Active user tracking",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "position": {
+          "type": "object",
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "z": { "type": "number" }
+          }
+        },
+        "lastActive": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "lastActive"]
+    },
+    "Asset": {
+      "title": "Asset",
+      "description": "Marketplace asset",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "premium": { "type": "boolean" },
+        "price": { "type": "number" },
+        "creatorId": { "type": "string" },
+        "data": { "type": "object" }
+      },
+      "required": ["name", "creatorId"]
+    }
+  },
+  "firestore": {
+    "/worlds/{worldId}": {
+      "schema": "World",
+      "description": "Primary world metadata"
+    },
+    "/worlds/{worldId}/objects/{objectId}": {
+      "schema": "SceneObject",
+      "description": "Objects within the world"
+    },
+    "/worlds/{worldId}/collaborators/{userId}": {
+      "schema": "Collaborator",
+      "description": "Active collaborators in the world"
+    },
+    "/marketplace/{assetId}": {
+      "schema": "Asset",
+      "description": "Publicly shared assets"
+    }
+  }
+}

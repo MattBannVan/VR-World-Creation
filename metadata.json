@@ -1,0 +1,6 @@
+{
+  "name": "Aetheria VR: AI World Engine",
+  "description": "A web-based virtual reality world creation engine utilizing Gemini AI to transform natural language prompts into immersive 3D environments. Features real-time collaboration, an asset marketplace, and intuitive design tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
